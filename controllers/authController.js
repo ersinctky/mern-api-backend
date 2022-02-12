@@ -12,7 +12,13 @@ const login = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "login" });
 });
 
+// me
+const getMe = asyncHandler(async (req, res) => {
+  res.status(200).json({ message: "me" });
+});
+
 module.exports = {
   register,
   login,
+  getMe,
 };
