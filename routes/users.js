@@ -6,10 +6,12 @@ const {
 } = require("../controllers/userController");
 const router = express.Router();
 
-router.get("/", getUser);
+const { protect } = require("../middleware/authMiddleware");
 
-router.put("/:id", updateUser);
+router.get("/", protect, getUser);
 
-router.delete("/:id", deleteUser);
+router.put("/:id", protect, updateUser);
+
+router.delete("/:id", protect, deleteUser);
 
 module.exports = router;
