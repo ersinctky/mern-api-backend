@@ -31,6 +31,27 @@ const getPost = asyncHandler(async (req, res) => {
   }
 });
 
+// Get All Posts
+
+const getAllPosts = asyncHandler(async (req, res) => {
+  const user = req.query.user;
+  const catName = req.query.cat;
+
+  let posts;
+  if (user) {
+    posts = await Post.find({ user: req.user.id });
+  } else if (catName) {
+    posts = await Post.find({
+      categories: {
+        $in: [catName],
+      },
+    });
+  } else {
+    posts = await Post.find();
+  }
+  res.status(200).json(posts);
+});
+
 // update post
 
 const updatePost = asyncHandler(async (req, res) => {
@@ -87,4 +108,4 @@ const deletePost = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "post has been deleted" });
 });
 
-module.exports = { createPost, getPost, updatePost, deletePost };
+module.exports = { createPost, getPost, getAllPosts, updatePost, deletePost };
