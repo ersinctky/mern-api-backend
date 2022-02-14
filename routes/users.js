@@ -1,14 +1,8 @@
 const express = require("express");
-const {
-  getUser,
-  updateUser,
-  deleteUser,
-} = require("../controllers/userController");
+const { updateUser, deleteUser } = require("../controllers/userController");
 const router = express.Router();
 
 const { protect } = require("../middleware/authMiddleware");
-
-router.get("/", protect, getUser);
 
 router.put("/:id", protect, updateUser);
 
