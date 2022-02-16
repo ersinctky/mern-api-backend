@@ -13,7 +13,7 @@ const { protect } = require("../middleware/authMiddleware");
 
 router.post("/", protect, createPost);
 router.get("/:id", protect, getPost);
-router.get("/", protect, getAllPosts);
+router.get("/", getAllPosts);
 router.put("/:id", protect, updatePost);
 router.delete("/:id", protect, deletePost);
 

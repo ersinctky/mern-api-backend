@@ -3,6 +3,8 @@ const { errorHandler } = require("./middleware/errorMiddleware");
 const colors = require("colors");
 const dotenv = require("dotenv").config();
 const connectDB = require("./config/db");
+const cors = require("cors");
+
 const multer = require("multer");
 const path = require("path");
 const port = process.env.PORT || 5000;
@@ -10,6 +12,8 @@ const app = express();
 
 // Connecting MongoDB
 connectDB();
+
+app.use(cors());
 
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")));
