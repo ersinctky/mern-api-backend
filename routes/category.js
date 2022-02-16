@@ -8,7 +8,7 @@ const router = express.Router();
 
 const { protect } = require("../middleware/authMiddleware");
 
-router.post("/", protect, postCategory);
-router.get("/", protect, getCategory);
+router.post("/", postCategory);
+router.get("/", getCategory);
 
 module.exports = router;

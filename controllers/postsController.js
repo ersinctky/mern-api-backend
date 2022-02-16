@@ -22,7 +22,7 @@ const createPost = asyncHandler(async (req, res) => {
 
 // Get post
 const getPost = asyncHandler(async (req, res) => {
-  const post = await Post.find({ user: req.user.id });
+  const post = await Post.findById(req.params.id);
   if (!post) {
     req.statusCode(400);
     throw new Error("There is no post");
@@ -39,7 +39,7 @@ const getAllPosts = asyncHandler(async (req, res) => {
 
   let posts;
   if (user) {
-    posts = await Post.find({ user: req.user.id });
+    posts = await Post.find({ user: req.query.user });
   } else if (catName) {
     posts = await Post.find({
       categories: {
