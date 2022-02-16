@@ -4,14 +4,14 @@ const Post = require("../models/Post");
 const bcrypt = require("bcryptjs");
 
 const updateUser = asyncHandler(async (req, res) => {
-  if (req.body.userId === req.params.id) {
+  if (req.body.userId === req.user.id) {
     if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
       req.body.password = await bcrypt.hash(req.body.password, salt);
     }
 
     const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
+      req.user.id,
       {
         $set: req.body,
       },

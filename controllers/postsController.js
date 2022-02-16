@@ -40,6 +40,7 @@ const getAllPosts = asyncHandler(async (req, res) => {
   let posts;
   if (user) {
     posts = await Post.find({ user: req.query.user });
+    console.log(posts);
   } else if (catName) {
     posts = await Post.find({
       categories: {
