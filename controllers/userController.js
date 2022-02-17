@@ -3,6 +3,14 @@ const User = require("../models/User");
 const Post = require("../models/Post");
 const bcrypt = require("bcryptjs");
 
+// @desc    Get all users
+// @route   GET /api/users
+// @access  Private/Admin
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  res.json(users);
+});
+
 const updateUser = asyncHandler(async (req, res) => {
   if (req.body.userId === req.user.id) {
     if (req.body.password) {
@@ -34,4 +42,4 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(401).json("You can delete only your account!");
   }
 });
-module.exports = { updateUser, deleteUser };
+module.exports = { updateUser, deleteUser, getUsers };
