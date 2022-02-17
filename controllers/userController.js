@@ -11,6 +11,21 @@ const getUsers = asyncHandler(async (req, res) => {
   res.json(users);
 });
 
+// @desc    Delete user
+// @route   DELETE /api/users/:id
+// @access  Private/Admin
+const deleteUserByAdmin = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    await user.remove();
+    res.json({ message: "User removed" });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
 const updateUser = asyncHandler(async (req, res) => {
   if (req.body.userId === req.user.id) {
     if (req.body.password) {
@@ -42,4 +57,4 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(401).json("You can delete only your account!");
   }
 });
-module.exports = { updateUser, deleteUser, getUsers };
+module.exports = { updateUser, deleteUser, getUsers, deleteUserByAdmin };
