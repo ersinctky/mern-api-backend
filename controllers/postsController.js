@@ -22,6 +22,7 @@ const createPost = asyncHandler(async (req, res) => {
 
 // Get post
 const getPost = asyncHandler(async (req, res) => {
+  // const user = await User.findById(req.user.id);
   const post = await Post.findById(req.params.id);
   if (!post) {
     req.statusCode(400);
