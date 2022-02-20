@@ -23,13 +23,12 @@ const createPost = asyncHandler(async (req, res) => {
 // Get post
 const getPost = asyncHandler(async (req, res) => {
   // const user = await User.findById(req.user.id);
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findById(req.params.id).populate("user", "name");
   if (!post) {
     req.statusCode(400);
     throw new Error("There is no post");
-  } else {
-    res.status(200).json(post);
   }
+  res.status(200).json(post);
 });
 
 // Get All Posts
