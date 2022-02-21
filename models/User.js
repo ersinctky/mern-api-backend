@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema(
     },
     profilePic: {
       type: String,
-      default: "",
+      default: "https://i.stack.imgur.com/34AD2.jpg",
     },
     role: {
       type: String,
