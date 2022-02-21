@@ -109,4 +109,28 @@ const deletePost = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "post has been deleted" });
 });
 
-module.exports = { createPost, getPost, getAllPosts, updatePost, deletePost };
+const imageUpload = asyncHandler(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(
+    req.user.id,
+    {
+      profilePic: req.savedProfileImage,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.status(200).json({
+    message: "image upload successfull",
+    user,
+  });
+});
+
+module.exports = {
+  createPost,
+  getPost,
+  getAllPosts,
+  updatePost,
+  deletePost,
+  imageUpload,
+};
