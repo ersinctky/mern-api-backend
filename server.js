@@ -1,5 +1,5 @@
 const express = require("express");
-const { errorHandler } = require("./middleware/errorMiddleware");
+const { errorHandler, notFound } = require("./middleware/errorMiddleware");
 const colors = require("colors");
 const dotenv = require("dotenv").config();
 const connectDB = require("./config/db");
@@ -15,8 +15,12 @@ connectDB();
 
 app.use(cors());
 
+// express - body middleware
+
 app.use(express.json());
-app.use("/images", express.static(path.join(__dirname, "/images")));
+
+// Static files
+app.use(express.static(path.join(__dirname, "/public")));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -38,6 +42,8 @@ app.use("/api/users", require("./routes/users"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/posts", require("./routes/posts"));
 app.use("/api/categories", require("./routes/category"));
+
+app.use(notFound);
 
 app.use(errorHandler);
 
