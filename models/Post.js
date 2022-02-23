@@ -18,6 +18,7 @@ const PostSchema = new mongoose.Schema(
     },
     photo: {
       type: String,
+      default: "https://i.stack.imgur.com/34AD2.jpg",
       required: false,
     },
 

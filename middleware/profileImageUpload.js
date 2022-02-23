@@ -9,9 +9,12 @@ const storage = multer.diskStorage({
     cb(null, path.join(rootDir, "/public/uploads"));
   },
   filename: function (req, file, cb) {
-    const extension = file.mimetype.split("/")[1];
-    req.saveProfileImage = "image_" + req.user.id + "." + extension;
-    cb(null, req.saveProfileImage);
+    // const extension = file.mimetype.split("/")[1];
+    // req.savedImage2 = "image_" + Date.now() + "." + extension;
+    // cb(null, req.savedImage2);
+
+    cb(null, req.body.name);
+    console.log(req.body.name);
   },
 });
 
@@ -23,6 +26,6 @@ const fileFilter = (req, file, cb) => {
   return cb(null, true);
 };
 
-const profileImageUpload = multer({ storage, fileFilter });
+const uploadImage = multer({ storage, fileFilter });
 
-module.exports = { profileImageUpload };
+module.exports = { uploadImage };

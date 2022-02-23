@@ -11,17 +11,13 @@ const {
 const router = express.Router();
 
 const { protect } = require("../middleware/authMiddleware");
-const { profileImageUpload } = require("../middleware/profileImageUpload");
+const { uploadImage } = require("../middleware/profileImageUpload");
 
 router.post("/", protect, createPost);
 router.get("/:id", getPost);
 router.get("/", getAllPosts);
 router.put("/:id", protect, updatePost);
 router.delete("/:id", protect, deletePost);
-router.post(
-  "/upload",
-  [protect, profileImageUpload.single("profilePic")],
-  imageUpload
-);
+router.post("/upload", [protect, uploadImage.single("file")], imageUpload);
 
 module.exports = router;

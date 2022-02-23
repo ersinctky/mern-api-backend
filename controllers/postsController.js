@@ -109,22 +109,39 @@ const deletePost = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "post has been deleted" });
 });
 
-const imageUpload = asyncHandler(async (req, res, next) => {
-  const user = await User.findByIdAndUpdate(
-    req.user.id,
-    {
-      profilePic: req.savedProfileImage,
-    },
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
-  res.status(200).json({
-    message: "image upload successfull",
-    user,
+const imageUpload = asyncHandler(async (req, res) => {
+  const { title, desc } = req.body;
+
+  if (!title || !desc) {
+    res.status(400);
+    throw new Error("Please add all fields");
+  }
+
+  const post = await Post.create({
+    title: req.body.title,
+    desc: req.body.desc,
+    user: req.user.id,
+    // photo: req.savedImage2,
+    photo: req.body.name,
   });
+
+  res.status(200).json(post);
 });
+
+// const user = await User.findByIdAndUpdate(
+//   req.user.id,
+//   {
+//     profilePic: req.savedProfileImage,
+//   },
+//   {
+//     new: true,
+//     runValidators: true,
+//   }
+// );
+// res.status(200).json({
+//   message: "image upload successfull",
+//   user,
+// });
 
 module.exports = {
   createPost,

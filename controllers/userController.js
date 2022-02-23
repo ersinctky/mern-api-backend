@@ -96,6 +96,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(401).json("You can delete only your account!");
   }
 });
+
 module.exports = {
   updateUser,
   deleteUser,
